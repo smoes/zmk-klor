@@ -1,0 +1,33 @@
+# KLOR polydactyl — Trackpad-Variante
+#
+# Die RECHTE Haelfte traegt das Azoteq TPS65 und ist deshalb die zentrale
+# Haelfte. Nur so kann der Trackpad-Treiber seine Events direkt an den Host
+# melden, ohne den Umweg ueber zmk,input-split.
+
+if SHIELD_KLOR_RIGHT
+
+    config ZMK_KEYBOARD_NAME
+        default "KLOR"
+
+    config ZMK_SPLIT_BLE_ROLE_CENTRAL
+        default y
+
+    # Der IQS5xx-Treiber haengt am I2C und meldet ueber das Input-Subsystem.
+    config I2C
+        default y
+
+    config INPUT
+        default y
+
+    config ZMK_POINTING
+        default y
+
+endif # RIGHT
+
+
+if SHIELD_KLOR_LEFT || SHIELD_KLOR_RIGHT
+
+    config ZMK_SPLIT
+        default y
+
+endif # LEFT RIGHT
