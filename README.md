@@ -52,7 +52,7 @@ Das TPS65 hat einen 6-poligen ZIF-Anschluss (0,5 mm Raster):
 | 6 | SDA | OLED-Header SDA | `&pro_micro 2` = P0.17 |
 
 **Der OLED-Header liegt auf dem Hardware-I²C.** SDA/SCL des KLOR gehen auf
-`pro_micro_i2c` des nice!nano — siehe `zmk/app/boards/nicekeyboards/nice_nano/nice_nano_nrf52840_zmk.dts`.
+`pro_micro_i2c` des nice!nano — siehe `zmk/app/boards/arm/nice_nano/nice_nano-pinctrl.dtsi`.
 Da kein Display verbaut wird, ist der Header frei und liefert alle vier
 Versorgungs- und Busleitungen an einem Punkt.
 
@@ -208,18 +208,25 @@ config/
     ├── klor_left.overlay    Spalten links, Encoder aktiv
     ├── klor_right.overlay   Spalten rechts, Trackpad-Node
     └── boards/
-        └── nice_nano_nrf52840_zmk.overlay   WS2812-Kette (nur bei aktivem RGB)
+        └── nice_nano_v2.overlay   WS2812-Kette (nur bei aktivem RGB)
 ```
 
 Push nach GitHub genügt — der Workflow in `.github/workflows/build.yml` baut
 beide Hälften und legt die `.uf2`-Dateien als Artefakt ab.
+
+**ZMK ist auf `v0.3` gepinnt** (`config/west.yml` und der Workflow-Aufruf). ZMK
+`main` läuft seit Dezember 2025 auf Zephyr 4.1 mit Hardware Model V2; dort heißt
+das Board `nice_nano//zmk` statt `nice_nano_v2`, und die Datei unter `boards/`
+müsste `nice_nano_nrf52840_zmk.overlay` heißen. Beim Upgrade auf ZMK ≥ v0.4 sind
+beide Punkte anzupassen — siehe
+[ZMK-Blog zu Zephyr 4.1](https://zmk.dev/blog/2025/12/09/zephyr-4-1).
 
 Lokal mit west:
 
 ```sh
 west init -l config
 west update
-west build -s zmk/app -b "nice_nano//zmk" -- -DSHIELD=klor_right -DZMK_CONFIG="$PWD/config"
+west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=klor_right -DZMK_CONFIG="$PWD/config"
 ```
 
 ---
@@ -239,7 +246,7 @@ Geändert wurde:
   Encoder-Node und `triggers-per-rotation` am Sensor-Node ersetzt.
 - **RGB standardmäßig aus.** Auf dem PCB weiterhin möglich, kostet aber spürbar
   Laufzeit. Zum Aktivieren die beiden Zeilen in `klor.conf` einkommentieren und
-  `chain-length` in `boards/nice_nano_nrf52840_zmk.overlay` ans Layout anpassen.
+  `chain-length` in `boards/nice_nano_v2.overlay` ans Layout anpassen.
 - **Trackpad ergänzt** in `klor_right.overlay`, Treiber über `west.yml`.
 
 Trackpad-Treiber: [AYM1607/zmk-driver-azoteq-iqs5xx](https://github.com/AYM1607/zmk-driver-azoteq-iqs5xx),
