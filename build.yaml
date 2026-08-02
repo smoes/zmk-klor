@@ -3,5 +3,6 @@ include:
     shield: klor_left
   - board: nice_nano_v2
     shield: klor_right
+    snippet: zmk-usb-logging   # TEMPORAER: Matrix-Diagnose, danach entfernen
 # - board: nice_nano_v2
 #   shield: settings_reset
