@@ -71,11 +71,13 @@
 		 */
 
 		/*
-		 * Das Pad ist quer eingebaut, Kabelabgang links.
-		 * Falls sich der Zeiger falsch herum bewegt: switch-xy, flip-x
-		 * und flip-y einzeln durchprobieren.
+		 * Das Pad ist quer eingebaut, Kabelabgang links: switch-xy.
+		 * Am fertigen Aufbau liefen beide Achsen verkehrt herum,
+		 * deshalb zusaetzlich flip-x und flip-y.
 		 */
 		switch-xy;
+		flip-x;
+		flip-y;
 
 		one-finger-tap;
 		two-finger-tap;
