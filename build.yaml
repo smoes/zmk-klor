@@ -4,5 +4,7 @@ include:
   - board: nice_nano_v2
     shield: klor_right
     snippet: zmk-usb-logging   # TEMPORAER: Matrix-Diagnose, danach entfernen
-# - board: nice_nano_v2
-#   shield: settings_reset
+  # TEMPORAER: raeumt Bonds und Einstellungen aus dem Flash. Auf BEIDE
+  # Haelften flashen, danach wieder die regulaere Firmware.
+  - board: nice_nano_v2
+    shield: settings_reset
