@@ -9,6 +9,7 @@
 
 #include "klor.dtsi"
 #include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 &default_transform {
 	col-offset = <6>;
@@ -31,13 +32,26 @@
 		device = <&trackpad>;
 
 		/*
+		 * Achsen und Geschwindigkeit werden hier korrigiert, nicht im
+		 * Chip: Ohne verdrahtetes NRST ueberspringt der Treiber seinen
+		 * Reset, und der IQS5xx uebernimmt keine der geschriebenen
+		 * Einstellungen — er laeuft mit Werkskonfiguration. Am Geraet
+		 * geprueft: switch-xy, flip-x und flip-y blieben wirkungslos.
+		 *
+		 * ACHTUNG beim Nachruesten von NRST: Dann greifen die
+		 * Chip-Properties ploetzlich doch, und die Korrektur hier
+		 * verdoppelt sich. In dem Fall eines von beidem entfernen.
+		 *
 		 * Zeigergeschwindigkeit: 6/5 = +20 %.
 		 * zip_xy_scaler skaliert nur die Bewegung, nicht das Scrollen —
 		 * dafuer waere zusaetzlich zip_scroll_scaler noetig. Der Prozessor
 		 * fuehrt Reste mit (track-remainders), gebrochene Faktoren gehen
 		 * also nicht als Rundungsfehler verloren.
 		 */
-		input-processors = <&zip_xy_scaler 6 5>;
+		input-processors =
+			  <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>
+			, <&zip_xy_scaler 6 5>
+			;
 	};
 };
 
@@ -81,14 +95,10 @@
 		 */
 
 		/*
-		 * Das Pad ist quer eingebaut, Kabelabgang links: switch-xy.
-		 *
-		 * flip-x und flip-y waren zwischenzeitlich gesetzt, drehten die
-		 * Richtungen aber genau falsch herum: Finger nach rechts bewegte
-		 * den Zeiger nach links, Finger nach oben nach unten. Am Geraet
-		 * gemessen, nicht hergeleitet.
+		 * Keine Achsen-Properties hier — sie greifen ohne NRST nicht,
+		 * siehe Kommentar beim input-listener. Die Korrektur passiert
+		 * ueber zip_xy_transform.
 		 */
-		switch-xy;
 
 		one-finger-tap;
 		two-finger-tap;
