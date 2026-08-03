@@ -82,12 +82,13 @@
 
 		/*
 		 * Das Pad ist quer eingebaut, Kabelabgang links: switch-xy.
-		 * Am fertigen Aufbau liefen beide Achsen verkehrt herum,
-		 * deshalb zusaetzlich flip-x und flip-y.
+		 *
+		 * flip-x und flip-y waren zwischenzeitlich gesetzt, drehten die
+		 * Richtungen aber genau falsch herum: Finger nach rechts bewegte
+		 * den Zeiger nach links, Finger nach oben nach unten. Am Geraet
+		 * gemessen, nicht hergeleitet.
 		 */
 		switch-xy;
-		flip-x;
-		flip-y;
 
 		one-finger-tap;
 		two-finger-tap;
