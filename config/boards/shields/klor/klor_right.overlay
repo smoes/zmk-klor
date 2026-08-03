@@ -31,6 +31,24 @@
 	};
 };
 
+/*
+ * Interne Pull-ups des nRF52840 auf SDA/SCL zuschalten.
+ *
+ * ZMKs i2c0_default setzt kein bias-pull-up, und gemessen liegen beide
+ * Leitungen im Leerlauf bei 0,5 V statt 3,3 V — ohne High-Pegel kann der
+ * IQS5xx die Adresse nicht quittieren, der Treiber meldet dauerhaft
+ * NRFX_ERROR_DRV_TWI_ERR_ANACK.
+ *
+ * Die internen Pull-ups sind mit rund 13 kOhm schwach, reichen fuer die
+ * kurze Strecke bei 100 kHz aber meist. Falls nicht: zwei 4,7-kOhm-
+ * Widerstaende von SDA und SCL nach 3,3 V, dann kann das hier wieder raus.
+ */
+&i2c0_default {
+	group1 {
+		bias-pull-up;
+	};
+};
+
 &pro_micro_i2c {
 	status = "okay";
 
