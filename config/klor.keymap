@@ -179,9 +179,9 @@
         nav_layer {
             display-name = "Nav";
             bindings = <
-                          &none         &none        &none          &kp R         &kp PG_UP                          &kp Y        &msc SCRL_UP    &bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1
+                          &none         &none        &none          &none         &kp PG_UP                          &kp HOME      &msc SCRL_UP    &bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1
     &trans     &none         &none        &none          &altt         &saltt                             &kp LEFT     &kp DOWN        &kp UP         &kp RIGHT     &hmr LGUI SQT    &trans
-    &trans     &none         &kp X        &kp C          &kp V         &kp PG_DN     &trans       &none   &kp N        &msc SCRL_DOWN  &kp COMMA      &kp DOT       &kp FSLH         &trans
+    &trans     &none         &none        &none          &none         &kp PG_DN     &trans       &none   &kp END       &msc SCRL_DOWN  &kp COMMA      &kp DOT       &kp FSLH         &trans
                                          &trans          &to DEFAULT   &trans        &trans       &mkp MB4 &mkp MB5    &kp BSPC        &none
             >;
 
