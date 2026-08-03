@@ -62,6 +62,18 @@
             hold-trigger-key-positions = <KEYS_L>;
             hold-trigger-on-release;             // delay positional check until key-release
         };
+        /*
+         * Encoder-Scrollen. ZMK liefert nur inc_dec_kp fuer Tastendruecke;
+         * fuer das Mausrad wird sensor-rotate-var mit &msc kombiniert.
+         * &msc ist eine kontinuierliche Bewegung — tap-ms bestimmt also,
+         * wie weit eine Raste scrollt. Notfalls hier nachjustieren.
+         */
+        inc_dec_msc: enc_mouse_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+            tap-ms = <30>;
+        };
         sd: shift_dance {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
@@ -124,17 +136,17 @@
  * ├──────┼───────┼───────┼───────┼───────┼───────┼────┬────┼───────┼───────┼───────┼───────┼───────┼──────┤
  * │ DEL  │   Z   │   X   │   C   │   V   │   B   │ENC │ TP │   N   │   M   │   ,   │   .   │   /   │ BSPC │
  * └──────┴───────┴───────┴───┬───┴───┬───┴───┬───┴────┴────┴───┬───┴───┬───┴───┬───┴───────┴───────┴──────┘
- *                        │--││ ESC   │ SPACE │  TAB  │ │ LCLK  │ RET   │ SYM   ││--│
+ *                        │--││ ESC   │ SPACE │  TAB  │ │ ⌥SPC  │ RET   │ SYM   ││--│
  *                        └──┘└───────┴───────┴───────┘ └───────┴───────┴───────┘└──┘
  */
             bindings = <
                           &kp Q         &kp W        &kp E          &kp R         &kp T                              &kp Y        &kp U           &kp I          &kp O         &kp P
     &kp LSHIFT &hml LGUI A  &hml LALT S  &hml LCTRL D   &kp F         &kp G                              &kp H        &kp J           &hmr LCTRL K   &hmr LALT L   &hmr LGUI SEMI   &kp RSHIFT
-    &kp DEL     &kp Z         &kp X        &kp C          &kp V         &kp B         &kp C_MUTE   &none   &kp N        &kp M           &kp COMMA      &kp DOT       &kp FSLH         &kp BSPC
-                                         &none          &kp ESC       &lt NAV SPACE &lt NUM TAB  &mkp LCLK &kp RET        &mo SYMBOL      &none
+    &kp DEL     &kp Z         &kp X        &kp C          &kp V         &kp B         &kp C_PP     &none   &kp N        &kp M           &kp COMMA      &kp DOT       &kp FSLH         &kp BSPC
+                                         &none          &kp ESC       &lt NAV SPACE &lt NUM TAB  &kp LA(SPACE) &kp RET        &mo SYMBOL      &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN>;
         };
 
         symbol_layer {
@@ -146,7 +158,7 @@
                                          &none          &to DEFAULT   &kp SPACE     &trans       &trans  &trans       &trans          &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN>;
         };
 
         num_layer {
@@ -158,7 +170,7 @@
                                          &none          &to DEFAULT   &kp SPACE     &trans       &mkp MCLK &mkp RCLK  &kp BSPC        &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN>;
         };
 
         nav_layer {
@@ -170,7 +182,7 @@
                                          &none          &to DEFAULT   &trans        &trans       &mkp MB4 &mkp MB5    &kp BSPC        &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN>;
         };
     };
 };
