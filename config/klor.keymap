@@ -151,8 +151,11 @@
 
         symbol_layer {
             display-name = "Sym";
+            /* &kp LA(N6) ist das Paragraphzeichen — Option+6 auf macOS mit
+             * US-Layout. Bei einem Wechsel des Host-Layouts stimmt das nicht
+             * mehr, unter Deutsch waere es LS(N3). */
             bindings = <
-                          &none         &none        &kp GRAVE      &kp PRCNT     &kp HASH                           &kp AMPS     &kp LBKT        &kp RBKT       &kp CARET     &kp SQT
+                          &none         &kp LA(N6)   &kp GRAVE      &kp PRCNT     &kp HASH                           &kp AMPS     &kp LBKT        &kp RBKT       &kp CARET     &kp SQT
     &trans     &kp EXCL      &kp AT       &kp EQUAL      &kp MINUS     &kp UNDER                          &kp LT       &kp LPAR        &kp RPAR       &kp PIPE      &kp GT           &trans
     &trans     &none         &kp BSLH     &kp PLUS       &kp STAR      &kp TILDE     &trans       &none   &kp EXCL     &kp LBRC        &kp RBRC       &kp DLLR      &kp DQT          &trans
                                          &trans          &to DEFAULT   &kp SPACE     &trans       &trans  &trans       &trans          &none
