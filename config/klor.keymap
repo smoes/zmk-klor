@@ -167,9 +167,9 @@
         num_layer {
             display-name = "Num";
             bindings = <
-                          &none         &none        &none          &none         &none                              &none        &kp N7          &kp N8         &kp N9        &kp COMMA
-    &trans     &kp TAB       &none        &none          &none         &none                              &kp N0       &kp N4          &kp N5         &kp N6        &kp DOT          &trans
-    &trans     &none         &none        &none          &none         &none         &trans       &none   &none        &kp N1          &kp N2         &kp N3        &kp FSLH         &trans
+                          &kp F1        &kp F2       &kp F3         &kp F4        &none                              &none        &kp N7          &kp N8         &kp N9        &kp COMMA
+    &trans     &kp F5        &kp F6       &kp F7         &kp F8        &none                              &kp N0       &kp N4          &kp N5         &kp N6        &kp DOT          &trans
+    &trans     &kp F9        &kp F10      &kp F11        &kp F12       &none         &trans       &none   &none        &kp N1          &kp N2         &kp N3        &kp FSLH         &trans
                                          &trans          &to DEFAULT   &kp SPACE     &trans       &mkp MCLK &mkp RCLK  &kp BSPC        &none
             >;
 
