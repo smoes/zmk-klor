@@ -8,6 +8,7 @@
  */
 
 #include "klor.dtsi"
+#include <input/processors.dtsi>
 
 &default_transform {
 	col-offset = <6>;
@@ -28,6 +29,15 @@
 	trackpad_listener: trackpad_listener {
 		compatible = "zmk,input-listener";
 		device = <&trackpad>;
+
+		/*
+		 * Zeigergeschwindigkeit: 6/5 = +20 %.
+		 * zip_xy_scaler skaliert nur die Bewegung, nicht das Scrollen —
+		 * dafuer waere zusaetzlich zip_scroll_scaler noetig. Der Prozessor
+		 * fuehrt Reste mit (track-remainders), gebrochene Faktoren gehen
+		 * also nicht als Rundungsfehler verloren.
+		 */
+		input-processors = <&zip_xy_scaler 6 5>;
 	};
 };
 
