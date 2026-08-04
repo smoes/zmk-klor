@@ -17,6 +17,14 @@
 	kscan0: kscan {
 		compatible = "zmk,kscan-gpio-matrix";
 		diode-direction = "col2row";
+
+		/*
+		 * Ohne diese Property werden beim Eintritt in den Deep Sleep
+		 * (CONFIG_ZMK_SLEEP) alle Matrix-GPIOs auf GPIO_DISCONNECTED
+		 * gesetzt (siehe zmk_pm_suspend_devices() in app/src/pm.c) --
+		 * dann kann kein Tastendruck mehr aufwecken, egal welcher.
+		 */
+		wakeup-source;
 	};
 
 	/*
