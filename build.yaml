@@ -3,6 +3,7 @@ include:
     shield: klor_left
   - board: nice_nano_v2
     shield: klor_right
+    snippet: zmk-usb-logging   # TEMPORAER: Diagnose Deep-Sleep-Wake/Trackpad, danach entfernen
 # Bei Kopplungsproblemen einkommentieren, auf BEIDE Haelften flashen und
 # danach wieder die regulaere Firmware aufspielen:
 # - board: nice_nano_v2
